@@ -1,0 +1,279 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+    --primary: 261 82% 36%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 262.1 83.3% 57.8%;
+    --radius: 0rem;
+
+    --primary-color-anna: #55d5d2;
+    --secondary-color-anna: #414141;
+  }
+
+  .dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 263.4 70% 50.4%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 263.4 70% 50.4%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  .height-banner-global {
+    @apply h-[42.6875rem] max-md:h-[53rem];
+  }
+
+  .padding-horizontal-mobile {
+    @apply px-[3.2rem];
+  }
+
+  /*hide the slider but still allow it to slide*/
+  .hide-scrollbar-global::-webkit-scrollbar {
+    @apply hidden;
+  }
+  /*end*/
+}
+
+.primary-nav > li.active > a {
+  @apply text-primary px-[10px] border-[#00000033];
+}
+
+html {
+  font-size: 1vw;
+}
+
+@media screen and (min-width: 1600px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/*@media screen and (max-width: 767px) {*/
+/*  html {*/
+/*    font-size: 0.8vw;*/
+/*  }*/
+/*}*/
+
+body {
+  /*background-color: #fafafa;*/
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+  position: relative;
+}
+
+.container {
+  max-width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @screen md {
+    max-width: 750px;
+  }
+  @screen lg {
+    max-width: 970px;
+  }
+  @screen xl {
+    max-width: 1170px;
+  }
+  @screen 2xl {
+    max-width: 1280px;
+  }
+}
+
+.container-custom {
+  width: 87.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container-homepage {
+  margin-left: auto;
+  margin-right: auto;
+}
+@media screen and (min-width: 768px) {
+  .container-homepage {
+    width: 87.5rem;
+  }
+}
+
+.text-title-level-black {
+  color: #454545;
+}
+
+.text-title-level-blue-1 {
+  color: #55d5d2;
+}
+
+.text-title-level-black-2 {
+  color: #3f3f3f;
+}
+
+.custom-container-dropdown-header {
+  margin-top: -1px;
+  margin-left: -1px;
+  margin-bottom: -1px;
+  padding: 0;
+}
+
+.block-section {
+  width: 100%;
+  padding: 30px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.block-detail {
+  width: 100%;
+  padding: 5px 0 30px;
+  overflow: hidden;
+  position: relative;
+}
+
+.gm-style-cc {
+  display: none !important;
+}
+
+/*TOAST CUSTOM GLOBAL*/
+#toast-custom {
+  position: fixed;
+  z-index: 500;
+  right: 6.25rem;
+  top: 8rem;
+}
+
+.toast-global {
+  box-shadow: 0px 12.522px 42.072px 0px rgba(0, 0, 0, 0.08),
+    0px 100px 336px 0px rgba(0, 0, 0, 0.15);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  padding: 0 0.88rem;
+  width: 26.1347rem;
+  height: 4.46559rem;
+  border-radius: 0.73206rem;
+  background: white;
+  border-left-width: 1rem;
+  /*border-left-color: var(--primary-color-anna);*/
+  transition: all linear 0.3s;
+}
+
+.content-toast {
+  flex-grow: 1;
+}
+
+.start-icon-toast {
+  margin-right: 0.66rem;
+  width: 1.46413rem;
+  height: 1.46413rem;
+}
+
+.title-toast {
+  color: #292828;
+  font-size: 1.02489rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.43485rem;
+}
+
+.message-toast {
+  font-size: 0.87848rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.14202rem;
+  color: #9b9b9b;
+}
+.close-toast {
+  width: 1.10117rem;
+  height: 1.10117rem;
+}
+
+@media screen and (max-width: 767px) {
+  #toast-custom {
+    top: 15rem;
+    right: 3.2rem;
+  }
+  .toast-global {
+    width: 93.6rem;
+    height: 14rem;
+    padding: 0 1.88rem;
+  }
+  .start-icon-toast {
+    width: 4rem;
+    height: 4rem;
+    margin-right: 1.88rem;
+  }
+  .title-toast {
+    font-size: 3.6rem;
+    line-height: 5.5rem;
+  }
+  .message-toast {
+    font-size: 2.6rem;
+    line-height: 3rem;
+  }
+  .close-toast {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+@keyframes toastRightToLeft {
+  from {
+    opacity: 0;
+    transform: translateX(calc(100% + 6.25rem));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes hideToast {
+  to {
+    opacity: 0;
+  }
+}
+/*END CUSTOM TOAST*/

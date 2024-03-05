@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  next-app:
+    container_name: anna
+    image: ngotheson/anna:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_REVALIDATE: ${NEXT_PUBLIC_REVALIDATE}
+        NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL}
+        NEXT_PUBLIC_REST_API: ${NEXT_PUBLIC_REST_API}
+        NEXT_PUBLIC_ACF_API: ${NEXT_PUBLIC_ACF_API}
+        NEXT_PUBLIC_V2_API: ${NEXT_PUBLIC_V2_API}
+        NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+    restart: always
+    ports:
+      - 3001:3000
+    networks:
+      - annanetwork
+
+  # Add more containers below (nginx, postgres, etc.)
+
+# Define a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+networks:
+  annanetwork:
+    external: true

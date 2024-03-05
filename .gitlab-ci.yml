@@ -1,0 +1,117 @@
+image: docker/compose:alpine-1.27.4
+
+services:
+  - docker:20.10.17-dind
+
+stages:
+  - build
+  - release
+  - deploy
+
+before_script:
+  - docker version
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+.allow_run:
+  stage: allow-run
+  only:
+    changes:
+      - Dockerfile
+      - public/**/*
+      - src/**/*
+      - .gitlab-ci.yml
+      - docker-compose.yml
+      - .dockerignore
+      - package.json
+      - tailwind.config.js
+      - next.config.js
+      - tsconfig.json
+
+build:
+  extends: .allow_run
+  stage: build
+  only:
+    refs:
+      - main
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+
+release-dev:
+  variables:
+    GIT_STRATEGY: none
+  stage: release
+  extends: .allow_run
+  only:
+    refs:
+      - main
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:dev
+    - docker push $CI_REGISTRY_IMAGE:dev
+
+deploy-dev:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+  extends: .allow_run
+  only:
+    refs:
+      - main
+  before_script:
+    - apk update && apk add openssh-client bash
+    - chmod 400 $SSH_PRIVATE_KEY_PRODUCTION
+  script:
+    - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY_PRODUCTION $SSH_USER@$SSH_SERVER_IP_PRODUCTION "
+      docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY};
+
+      echo "PATH_TO_HOME:" ${PATH_TO_HOME};
+      echo "DEV_PROJECT_NAME:" ${DEV_PROJECT_NAME};
+      echo "CI_REGISTRY_IMAGE:" ${CI_REGISTRY_IMAGE};
+
+      cd ${PATH_TO_HOME}/${DEV_PROJECT_NAME};
+
+      docker-compose -p ${DEV_PROJECT_NAME} down --remove-orphans;
+      docker pull ${CI_REGISTRY_IMAGE}:dev;
+      DOCKER_CLIENT_TIMEOUT=600 COMPOSE_HTTP_TIMEOUT=600 docker-compose -p ${DEV_PROJECT_NAME} up --build -d;
+      docker image prune -f;"
+
+release-latest:
+  variables:
+    GIT_STRATEGY: none
+  stage: release
+  extends: .allow_run
+  only:
+    refs:
+      - production
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:dev
+    - docker tag $CI_REGISTRY_IMAGE:dev $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:latest
+
+deploy-production:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+  extends: .allow_run
+  only:
+    refs:
+      - production
+  before_script:
+    - apk update && apk add openssh-client bash
+    - chmod 400 $SSH_PRIVATE_KEY_PRODUCTION
+  script:
+    - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY_PRODUCTION $SSH_USER@$SSH_SERVER_IP_PRODUCTION "
+      docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY};
+
+      echo "PATH_TO_HOME:" ${PATH_TO_HOME};
+      echo "PROJECT_NAME:" ${PROJECT_NAME};
+      echo "CI_REGISTRY_IMAGE:" ${CI_REGISTRY_IMAGE};
+
+      cd ${PATH_TO_HOME}/${PROJECT_NAME};
+
+      docker-compose -p ${PROJECT_NAME} down --remove-orphans;
+      docker pull ${CI_REGISTRY_IMAGE}:latest;
+      DOCKER_CLIENT_TIMEOUT=600 COMPOSE_HTTP_TIMEOUT=600 docker-compose -p ${PROJECT_NAME} up --build -d;
+      docker image prune -f;"
