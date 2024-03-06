@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 export default function Donate() {
   const user = useSelector((state: any) => state.user);
-  const handleSubmit = (data) => {
+  const handleSubmit = (data: any) => {
     const dataSubmit = { key: 'donate', email: user.user.email, ...data };
     const dataRef = ref(database, url.donate);
 

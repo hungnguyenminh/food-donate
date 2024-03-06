@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { undefined } from "zod";
 
 export default function History() {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state: any) => state.user);
   const [dataHistory, setDataHistory] = useState<any>();
 
   console.log('dataHistory', dataHistory);
@@ -37,7 +37,7 @@ export default function History() {
           }
 
           const filterMyHistory = listHistory.filter(
-            (item) => (item.email = user.user.email)
+            (item: any) => (item.email = user.user.email)
           );
 
           setDataHistory(filterMyHistory);

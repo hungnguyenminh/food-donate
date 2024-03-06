@@ -10,19 +10,19 @@ import { useSelector } from "react-redux";
 export default function Receive() {
   const [listDataDonate, setListDataDonate] = useState<any>();
   const [listDataDonateFilter, setListDataDonateFilter] = useState<any>();
-  const [itemDonateSelect, setItemDonateSelect] = useState();
+  const [itemDonateSelect, setItemDonateSelect] = useState<any>();
 
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state: any) => state.user);
 
   console.log("user", user.user.uid);
-  const handleFilterDonate = (district) => {
+  const handleFilterDonate = (district: any) => {
     const listDonate = listDataDonate.filter(
-      (item) => item.district === district.target.value
+      (item: any) => item.district === district.target.value
     );
 
     setListDataDonateFilter(listDonate);
   };
-  const handleGetItemReceive = (item) => {
+  const handleGetItemReceive = (item: any) => {
     console.log("item", item);
     setItemDonateSelect(item);
   };
