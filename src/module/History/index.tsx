@@ -64,11 +64,12 @@ export default function History() {
                       </h3>
                       <i className="text-red font-medium text-[1rem]">{item.key}</i>
                     </div>
-                    <p className="text-gray-700">Donator’s name: {item.name_donater}</p>
-                    <p className="text-gray-700">Phonenumber: {item.phone_number}</p>
-                    <p className="text-gray-700">Description: {item.description}</p>
+                    <p className="text-gray-700">created at: {item.created_at}</p>
+                    <p className="text-gray-700">donator’s name: {item.name_donater}</p>
+                    <p className="text-gray-700">phonenumber: {item.phone_number}</p>
+                    <p className="text-gray-700">description: {item.description}</p>
                     <p className="text-gray-700">
-                      Address: {item.province}- {item.district}
+                      address: {item.province}- {item.district}
                     </p>
                   </div> :
                   <div>
@@ -82,11 +83,12 @@ export default function History() {
                               Item receive: {itemProduct.item_donate}
                             </h3>
                           </div>
-                          <p className="text-gray-700">Donator’s name: {itemProduct.name_donater}</p>
-                          <p className="text-gray-700">Phonenumber: {itemProduct.phone_number}</p>
-                          <p className="text-gray-700">Description: {itemProduct.description}</p>
+                          <p className="text-gray-700">created at: {item.created_at}</p>
+                          <p className="text-gray-700">donator’s name: {itemProduct.name_donater}</p>
+                          <p className="text-gray-700">phonenumber: {itemProduct.phone_number}</p>
+                          <p className="text-gray-700">description: {itemProduct.description}</p>
                           <p className="text-gray-700">
-                            Address: {itemProduct.province}- {itemProduct.district}
+                            address: {itemProduct.province}- {itemProduct.district}
                           </p>
                         </div>
                     ))}
