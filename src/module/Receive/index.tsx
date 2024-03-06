@@ -69,7 +69,7 @@ export default function Receive() {
     <div className="flex">
       <div>
         <h1 className="text-[3rem] font-medium bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
-          Create order receive
+          Food receiving
         </h1>
         <Formik
           initialValues={{

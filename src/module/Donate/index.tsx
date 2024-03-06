@@ -41,7 +41,7 @@ export default function Donate() {
           <div className="w-[35rem]">
             <div className="grid grid-cols-2 gap-[8px]">
               <div className="mt-[1rem]">
-                <p className="text-[1.5rem] mb-[0.5rem]">Donate name:</p>
+                <p className="text-[1.5rem] mb-[0.5rem]">Donator’s name:</p>
                 <input
                   type="text"
                   placeholder="Donate name"
