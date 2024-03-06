@@ -3,7 +3,10 @@ import { getDatabase } from 'firebase/database';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from '@firebase/auth';
 
-const url = '/class';
+const url = {
+  donate: '/donate',
+  receive: '/revceive',
+};
 
 const firebaseConfig = {
   apiKey: 'AIzaSyD1WxNcjS799aHBXR287FhQVtYULccYSDU',

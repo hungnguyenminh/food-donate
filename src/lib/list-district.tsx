@@ -1,34 +1,34 @@
 const listDistrictHaNoi = [
   {
-    id: 1,
+    value: 'Quận Ba Đình',
     name: 'Quận Ba Đình',
   },
   {
-    id: 2,
+    value: 'Quận Hoàn Kiếm',
     name: 'Quận Hoàn Kiếm',
   },
   {
-    id: 3,
+    value: 'Quận Tây Hồ',
     name: 'Quận Tây Hồ',
   },
   {
-    id: 4,
+    value: 'Quận Cầu Giấy',
     name: 'Quận Cầu Giấy',
   },
   {
-    id: 5,
+    value: 'Quận Đống Đa',
     name: 'Quận Đống Đa',
   },
   {
-    id: 6,
+    value: 'Quận Hà Đông',
     name: 'Quận Hà Đông',
   },
   {
-    id: 7,
+    value: "Quận Nam Từ Liêm",
     name: 'Quận Nam Từ Liêm',
   },
   {
-    id: 8,
+    value: 'Quận Thanh Xuân',
     name: 'Quận Thanh Xuân',
   },
 ];

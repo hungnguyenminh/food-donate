@@ -1,10 +1,23 @@
 'use client';
 
 import { Formik } from 'formik';
-import { useState } from 'react';
+import { database, url } from '@/firebase/config';
+import { push, ref, update } from '@firebase/database';
+import { listDistrictHaNoi } from '@/lib/list-district';
 
 export default function Donate() {
-  const [listDistrictSelect, setListDistrictSelect] = useState();
+  const handleSubmit = (data) => {
+    const dataRef = ref(database, url.donate);
+
+    // push object to object in firebase
+    const newObjectRef = push(dataRef, data);
+    update(newObjectRef, {
+      id: newObjectRef.key,
+    }).then(() => {
+      alert('success!');
+    });
+  };
+
   return (
     <div>
       <h1 className="text-[3rem] font-medium bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
@@ -16,15 +29,10 @@ export default function Donate() {
           item_donate: '',
           phone_number: '',
           description: '',
-          province: '',
+          province: 'Ha Noi',
           district: '',
         }}
-        onSubmit={(values, actions) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            actions.setSubmitting(false);
-          }, 1000);
-        }}
+        onSubmit={handleSubmit}
       >
         {({ handleSubmit, handleChange, setFieldValue, values, errors }) => (
           <div className="w-[35rem]">
@@ -83,12 +91,12 @@ export default function Donate() {
                   className="w-full border-[2px] border-[#F4F4F4] outline-[#F4F4F4] h-[3.5rem] pl-[0.5rem] mt-[0.2rem] rounded-[2rem]"
                   name="cars"
                   onChange={(value: any) => {
+                    console.log("Province", value.target.value);
                     setFieldValue('province', value.target.value);
                   }}
                   id="cars"
                 >
                   <option value="Ha Noi">Ha Noi</option>
-                  <option value="Ha Noi2">TP HCM</option>
                 </select>
               </div>
               <div className="mt-[1rem]">
@@ -98,13 +106,15 @@ export default function Donate() {
                   name="cars"
                   id="cars"
                   onChange={(value: any) => {
+                    console.log("district", value.target.value);
                     setFieldValue('district', value.target.value);
                   }}
                 >
-                  <option value="volvo">Volvo</option>
-                  <option value="saab">Saab</option>
-                  <option value="opel">Opel</option>
-                  <option value="audi">Audi</option>
+                  {listDistrictHaNoi.map((item, index) => (
+                    <option key={index} value={item.value}>
+                      {item.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
