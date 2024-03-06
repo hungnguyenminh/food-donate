@@ -10,12 +10,14 @@ import { useSelector } from "react-redux";
 export default function Receive() {
   const [listDataDonate, setListDataDonate] = useState<any>();
   const [listDataDonateFilter, setListDataDonateFilter] = useState<any>();
-  const [itemDonateSelect, setItemDonateSelect] = useState<any>();
 
   const user = useSelector((state: any) => state.user);
 
-  console.log("user", user.user.uid);
   const handleFilterDonate = (district: any) => {
+    if(district === ''){
+      setListDataDonateFilter(listDataDonate);
+      return;
+    }
     const listDonate = listDataDonate.filter(
       (item: any) => item.district === district.target.value
     );
@@ -23,16 +25,35 @@ export default function Receive() {
     setListDataDonateFilter(listDonate);
   };
   const handleGetItemReceive = (item: any) => {
-    console.log("item", item);
-    setItemDonateSelect(item);
+    const find = listDataDonateFilter.map((itemSelect: any) => {
+
+      let newObject = undefined;
+
+      if(itemSelect.id === item.id){
+        newObject = {...itemSelect, isSelect: !itemSelect.isSelect}
+      }
+      else {
+        newObject = itemSelect
+      }
+
+      return newObject
+    } )
+
+    setListDataDonateFilter(find)
   };
 
   const handleSubmit = (data: any) => {
+    const date = new Date();
+    const currentDate = date.toLocaleDateString();
+
+    const dataDonateSubmit = listDataDonateFilter.filter((item: any) => item.isSelect === true);
+
     const dataSubmit = {
       key: 'receive',
       email: user.user.email,
       ...data,
-      ...itemDonateSelect,
+      listProduct: dataDonateSubmit,
+      created_at: currentDate
     };
 
     const dataRef = ref(database, url.receive);
@@ -54,9 +75,13 @@ export default function Receive() {
           const dataFromFirebase = snapshot.val();
 
           // convert data
+          const listDonate = Object.values(dataFromFirebase).map((item: any) => {
+            const newObject = {...item, isSelect: false}
+            return newObject
+          })
 
-          setListDataDonate(Object.values(dataFromFirebase));
-          setListDataDonateFilter(Object.values(dataFromFirebase));
+          setListDataDonate(listDonate);
+          setListDataDonateFilter(listDonate);
         });
       } catch (error) {
         console.error("Error fetching data from Firebase:", error);
@@ -121,21 +146,24 @@ export default function Receive() {
                 <div className="mt-[1rem]">
                   <p className="text-[1.5rem] mb-[0.5rem]">District:</p>
                   <select
-                    className="w-full border-[2px] border-[#F4F4F4] outline-[#F4F4F4] h-[3.5rem] pl-[0.5rem] mt-[0.2rem] rounded-[2rem]"
-                    name="cars"
-                    id="cars"
-                    onChange={handleFilterDonate}
+                      className="w-full border-[2px] border-[#F4F4F4] outline-[#F4F4F4] h-[3.5rem] pl-[0.5rem] mt-[0.2rem] rounded-[2rem]"
+                      name="cars"
+                      id="cars"
+                      onChange={handleFilterDonate}
                   >
+                    <option value=''>
+                      Chooose district
+                    </option>
                     {listDistrictHaNoi.map((item, index) => (
-                      <option key={index} value={item.value}>
-                        {item.name}
-                      </option>
+                        <option key={index} value={item.value}>
+                          {item.name}
+                        </option>
                     ))}
                   </select>
                 </div>
               </div>
               <div className="flex justify-center">
-                <button
+              <button
                   type="button"
                   onClick={() => handleSubmit()}
                   className=" border-[#10AD69] hover:shadow-lg hover:shadow-green-400 transition-all duration-500  border-[2px] px-[3.5rem] py-[0.8rem] text-white font-medium rounded-[2rem] text-[1.4rem] mt-[2rem]"
@@ -153,16 +181,16 @@ export default function Receive() {
             <div
               key={index}
               onClick={() => handleGetItemReceive(item)}
-              className="bg-white shadow-md rounded-lg p-4 mb-[1rem] cursor-pointer"
+              className={`${item.isSelect === true ? 'bg-[#C5C5C5]' : 'bg-white'} shadow-md rounded-lg p-4 mb-[1rem] cursor-pointer`}
             >
               <h3 className="text-lg font-medium text-gray-900">
-                {item.item_donate}
+                Item donate: {item.item_donate}
               </h3>
-              <p className="text-gray-700">{item.name_donater}</p>
-              <p className="text-gray-700">{item.phone_number}</p>
-              <p className="text-gray-700">{item.description}</p>
+              <p className="text-gray-700">Donator’s name: {item.name_donater}</p>
+              <p className="text-gray-700">Donator’s phone: {item.phone_number}</p>
+              <p className="text-gray-700">Description: {item.description}</p>
               <p className="text-gray-700">
-                {item.province}- {item.district}
+               Address: {item.province}- {item.district}
               </p>
             </div>
           ))}

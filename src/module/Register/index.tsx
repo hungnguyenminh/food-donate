@@ -43,7 +43,7 @@ export default function Register() {
     <div className="w-full h-screen flex items-center justify-center max-md:flex-col max-md:px-[3.2rem] max-md:justify-start">
       <div className="w-[40rem] h-[40rem] rounded-[1.7rem] overflow-hidden max-md:w-full  max-md:h-[70rem] max-md:mt-[20rem]">
         <Image
-            src="/image/login.avif"
+            src="/image/image_food.png"
             alt=""
             width={600}
             height={600}

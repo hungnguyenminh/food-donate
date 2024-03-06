@@ -9,7 +9,10 @@ import { useSelector } from "react-redux";
 export default function Donate() {
   const user = useSelector((state: any) => state.user);
   const handleSubmit = (data: any) => {
-    const dataSubmit = { key: 'donate', email: user.user.email, ...data };
+      const date = new Date();
+      const currentDate = date.toLocaleDateString();
+
+    const dataSubmit = { key: 'donate', email: user.user.email, ...data, created_at: currentDate };
     const dataRef = ref(database, url.donate);
 
     // push object to object in firebase
