@@ -4,13 +4,16 @@ import { Formik } from 'formik';
 import { database, url } from '@/firebase/config';
 import { push, ref, update } from '@firebase/database';
 import { listDistrictHaNoi } from '@/lib/list-district';
+import { useSelector } from "react-redux";
 
 export default function Donate() {
+  const user = useSelector((state) => state.user);
   const handleSubmit = (data) => {
+    const dataSubmit = { key: 'donate', email: user.user.email, ...data };
     const dataRef = ref(database, url.donate);
 
     // push object to object in firebase
-    const newObjectRef = push(dataRef, data);
+    const newObjectRef = push(dataRef, dataSubmit);
     update(newObjectRef, {
       id: newObjectRef.key,
     }).then(() => {

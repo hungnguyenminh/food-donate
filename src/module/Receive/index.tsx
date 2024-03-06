@@ -5,12 +5,16 @@ import { listDistrictHaNoi } from "@/lib/list-district";
 import { useEffect, useState } from "react";
 import { onValue, push, ref, update } from "@firebase/database";
 import { database, url } from "@/firebase/config";
+import { useSelector } from "react-redux";
 
 export default function Receive() {
   const [listDataDonate, setListDataDonate] = useState<any>();
   const [listDataDonateFilter, setListDataDonateFilter] = useState<any>();
   const [itemDonateSelect, setItemDonateSelect] = useState();
 
+  const user = useSelector((state) => state.user);
+
+  console.log("user", user.user.uid);
   const handleFilterDonate = (district) => {
     const listDonate = listDataDonate.filter(
       (item) => item.district === district.target.value
@@ -24,7 +28,12 @@ export default function Receive() {
   };
 
   const handleSubmit = (data: any) => {
-    const dataSubmit = { ...data, ...itemDonateSelect };
+    const dataSubmit = {
+      key: 'receive',
+      email: user.user.email,
+      ...data,
+      ...itemDonateSelect,
+    };
 
     const dataRef = ref(database, url.receive);
 
@@ -36,7 +45,6 @@ export default function Receive() {
       alert('success!');
     });
   };
-  console.log('listDataDonate', listDataDonate);
   useEffect(() => {
     const fetchData = async () => {
       try {
