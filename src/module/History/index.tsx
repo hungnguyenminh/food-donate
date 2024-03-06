@@ -76,8 +76,8 @@ export default function History() {
                     <div className='flex justify-end'>
                       <i className="text-red font-medium text-[1rem]">{item.key}</i>
                     </div>
-                    {item?.listProduct && item?.listProduct.map((itemProduct: any) => (
-                        <div className='mb-[2rem]'>
+                    {item?.listProduct && item?.listProduct.map((itemProduct: any, index: number) => (
+                        <div key={index} className='mb-[2rem]'>
                           <div className="flex justify-between">
                             <h3 className="text-lg font-medium text-gray-900">
                               Item receive: {itemProduct.item_donate}
