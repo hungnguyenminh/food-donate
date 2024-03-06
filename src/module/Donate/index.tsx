@@ -104,25 +104,26 @@ export default function Donate() {
               </div>
               <div className="mt-[1rem]">
                 <p className="text-[1.5rem] mb-[0.5rem]">District:</p>
-                <select
-                  className="w-full border-[2px] border-[#F4F4F4] outline-[#F4F4F4] h-[3.5rem] pl-[0.5rem] mt-[0.2rem] rounded-[2rem]"
-                  name="cars"
-                  id="cars"
-                  onChange={(value: any) => {
-                    console.log("district", value.target.value);
-                    setFieldValue('district', value.target.value);
-                  }}
-                >
-                  {listDistrictHaNoi.map((item, index) => (
-                    <option key={index} value={item.value}>
-                      {item.name}
-                    </option>
-                  ))}
-                </select>
+                  <select
+                      className="w-full border-[2px] border-[#F4F4F4] outline-[#F4F4F4] h-[3.5rem] pl-[0.5rem] mt-[0.2rem] rounded-[2rem]"
+                      onChange={(value: any) => {
+                          console.log("district", value.target.value);
+                          setFieldValue('district', value.target.value);
+                      }}
+                      defaultValue=''
+                  >
+                      <option value=''>Choose District</option>
+                      {listDistrictHaNoi.map((item, index) => (
+
+                          <option key={index} value={item.value}>
+                              {item.name}
+                          </option>
+                      ))}
+                  </select>
               </div>
             </div>
-            <div className="flex justify-center">
-              <button
+              <div className="flex justify-center">
+                  <button
                 type="button"
                 onClick={() => handleSubmit()}
                 className=" border-[#10AD69] hover:shadow-lg hover:shadow-green-400 transition-all duration-500  border-[2px] px-[3.5rem] py-[0.8rem] text-white font-medium rounded-[2rem] text-[1.4rem] mt-[2rem]"
