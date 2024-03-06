@@ -46,18 +46,18 @@ export default function Login() {
   });
 
   return (
-    <div className="w-full h-screen flex items-center justify-center">
-      <div className="w-[40rem] h-[40rem] rounded-[1.7rem] overflow-hidden">
+    <div className="w-full h-screen flex items-center justify-center max-md:flex-col max-md:px-[3.2rem] max-md:justify-start">
+      <div className="w-[40rem] h-[40rem] rounded-[1.7rem] overflow-hidden max-md:w-full  max-md:h-[70rem] max-md:mt-[20rem]">
         <Image
           src="/image/login.avif"
           alt=""
           width={600}
           height={600}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover max-md:object-contain"
         />
       </div>
-      <div className="ml-[5rem] w-[37rem]">
-        <h4 className="text-[4rem] font-medium">Sign in</h4>
+      <div className="ml-[5rem] w-[37rem] max-md:w-full max-md:px-[10rem]">
+        <h4 className="text-[4rem] font-medium max-md:text-center max-md:text-[7rem]">Sign in</h4>
         <Formik
           initialValues={{
             email: '',
@@ -78,28 +78,28 @@ export default function Login() {
             return (
               <div className="login-container">
                 <div className="mt-[1.5rem] mb-[0.8rem]">
-                  <p className="text-[1.2rem] text-[#454545]">Email:</p>
+                  <p className="text-[1.2rem] text-[#454545] max-md:text-[4rem]">Email:</p>
                   <input
                     type="email"
                     placeholder="email"
                     name="email"
                     value={values.email}
                     onChange={handleChange}
-                    className="w-full border-[2px] border-[#F4F4F4] outline-[#F4F4F4] h-[3rem] pl-[0.5rem] mt-[0.2rem]"
+                    className="w-full border-[2px] border-[#F4F4F4] outline-[#F4F4F4] h-[3rem] pl-[0.5rem] mt-[0.2rem] max-md:h-[9rem] max-md:text-[3rem]"
                   />
                   {errors.email && touched.email && (
                     <p style={{ color: 'red' }}>{errors.email}</p>
                   )}
                 </div>
                 <div>
-                  <p className="text-[1.2rem] text-[#454545]">Password:</p>
+                  <p className="text-[1.2rem] text-[#454545] max-md:text-[4rem]">Password:</p>
                   <input
                     type="password"
                     placeholder="password"
                     name="password"
                     value={values.password}
                     onChange={handleChange}
-                    className="w-full border-[2px] border-[#F4F4F4] outline-[#F4F4F4] h-[3rem] pl-[0.5rem] mt-[0.2rem]"
+                    className="w-full border-[2px] border-[#F4F4F4] outline-[#F4F4F4] h-[3rem] pl-[0.5rem] mt-[0.2rem] max-md:h-[9rem] max-md:text-[3rem]"
                   />
                   {errors.password && touched.password && (
                     <p style={{ color: 'red' }}>{errors.password}</p>
@@ -109,7 +109,7 @@ export default function Login() {
                   <button
                     type="submit"
                     onClick={() => handleSubmit()}
-                    className=" bg-[#5ae4a8] px-[3.5rem] py-[0.8rem] text-white font-medium rounded-[2rem] text-[1.4rem] mt-[2rem]"
+                    className=" bg-[#5ae4a8] px-[3.5rem] py-[0.8rem] text-white font-medium rounded-[2rem] text-[1.4rem] mt-[2rem] max-md:w-full max-md:py-[4rem] max-md:text-[3rem]"
                   >
                     Sign in
                   </button>
@@ -121,7 +121,7 @@ export default function Login() {
         <div className="flex justify-center">
           <Link
             href="/register"
-            className="text-center underline text-[#454545] text-[1.2rem] my-[1rem]"
+            className="text-center underline text-[#454545] text-[1.2rem] my-[1rem] max-md:text-[4rem] max-md:mt-[3rem]"
           >
             Or signup with
           </Link>
