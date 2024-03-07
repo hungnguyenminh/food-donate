@@ -10,7 +10,6 @@ export default function History() {
   const user = useSelector((state: any) => state.user);
   const [dataHistory, setDataHistory] = useState<any>();
 
-  console.log('dataHistory', dataHistory);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,6 +66,7 @@ export default function History() {
                     <p className="text-gray-700">created at: {item.created_at}</p>
                     <p className="text-gray-700">donator’s name: {item.name_donater}</p>
                     <p className="text-gray-700">phonenumber: {item.phone_number}</p>
+                    <p className="text-gray-700">email: {item.email}</p>
                     <p className="text-gray-700">description: {item.description}</p>
                     <p className="text-gray-700">
                       address: {item.province}- {item.district}

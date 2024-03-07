@@ -3,7 +3,7 @@
 import { Formik } from 'formik';
 import { listDistrictHaNoi } from "@/lib/list-district";
 import { useEffect, useState } from "react";
-import { onValue, push, ref, update } from "@firebase/database";
+import {onValue, push, ref, set, update} from "@firebase/database";
 import { database, url } from "@/firebase/config";
 import { useSelector } from "react-redux";
 
@@ -47,6 +47,9 @@ export default function Receive() {
     const currentDate = date.toLocaleDateString();
 
     const dataDonateSubmit = listDataDonateFilter.filter((item: any) => item.isSelect === true);
+    const dataNotDonateSubmit = listDataDonateFilter.filter((item: any) => item.isSelect === false);
+
+    console.log('dataNotDonateSubmit', dataNotDonateSubmit);
 
     const dataSubmit = {
       key: 'receive',
@@ -56,9 +59,14 @@ export default function Receive() {
       created_at: currentDate
     };
 
-    const dataRef = ref(database, url.receive);
+
+    const dataUpdateDonateRef = ref(database, url.donate);
+
+    set(dataUpdateDonateRef, dataNotDonateSubmit);
+
 
     // push object to object in firebase
+    const dataRef = ref(database, url.receive);
     const newObjectRef = push(dataRef, dataSubmit);
     update(newObjectRef, {
       id: newObjectRef.key,
@@ -75,7 +83,7 @@ export default function Receive() {
           const dataFromFirebase = snapshot.val();
 
           // convert data
-          const listDonate = Object.values(dataFromFirebase).map((item: any) => {
+          const listDonate = dataFromFirebase && Object.values(dataFromFirebase).map((item: any) => {
             const newObject = {...item, isSelect: false}
             return newObject
           })

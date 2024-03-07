@@ -12,7 +12,7 @@ export default function Donate() {
       const date = new Date();
       const currentDate = date.toLocaleDateString();
 
-    const dataSubmit = { key: 'donate', email: user.user.email, ...data, created_at: currentDate };
+    const dataSubmit = { key: 'donate', email: user.user.email, ...data, created_at: currentDate, isAvailable: true };
     const dataRef = ref(database, url.donate);
 
     // push object to object in firebase
