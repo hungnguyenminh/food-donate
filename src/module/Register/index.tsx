@@ -9,7 +9,13 @@ import { useRouter } from 'next/navigation';
 
 export default function Register() {
   const router = useRouter();
-  const handleRegister = async (data: { email: string; password: string }) => {
+  const handleRegister = async (data: { email: string; password: string, confirmPassword: string }) => {
+    if(data.password !== data.confirmPassword){
+      alert('password and confirm password not match!');
+      return;
+    }
+
+
     const { result, error }: any = await signUp(data.email, data.password);
 
     if (error) {
@@ -56,6 +62,7 @@ export default function Register() {
           initialValues={{
             email: '',
             password: '',
+            confirmPassword: '',
           }}
           onSubmit={handleRegister}
           validateOnChange
@@ -70,45 +77,59 @@ export default function Register() {
             touched,
           }): JSX.Element => {
             return (
-              <div className="login-container">
-                <div className="mt-[1.5rem] mb-[0.8rem]">
-                  <p className="text-[1.2rem] text-[#454545]">Email:</p>
-                  <input
-                    type="email"
-                    placeholder="email"
-                    name="email"
-                    value={values.email}
-                    onChange={handleChange}
-                    className="w-full border-[2px] border-[#F4F4F4] outline-[#F4F4F4] h-[3rem] pl-[0.5rem] mt-[0.2rem]"
-                  />
-                  {errors.email && touched.email && (
-                    <p style={{ color: 'red' }}>{errors.email}</p>
-                  )}
+                <div className="login-container">
+                  <div className="mt-[1.5rem] mb-[0.8rem]">
+                    <p className="text-[1.2rem] text-[#454545]">Email:</p>
+                    <input
+                        type="email"
+                        placeholder="email"
+                        name="email"
+                        value={values.email}
+                        onChange={handleChange}
+                        className="w-full border-[2px] border-[#F4F4F4] outline-[#F4F4F4] h-[3rem] pl-[0.5rem] mt-[0.2rem]"
+                    />
+                    {errors.email && touched.email && (
+                        <p style={{color: 'red'}}>{errors.email}</p>
+                    )}
+                  </div>
+                  <div>
+                    <p className="text-[1.2rem] text-[#454545]">Password:</p>
+                    <input
+                        type="password"
+                        placeholder="password"
+                        name="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        className="w-full border-[2px] border-[#F4F4F4] outline-[#F4F4F4] h-[3rem] pl-[0.5rem] mt-[0.2rem]"
+                    />
+                    {errors.password && touched.password && (
+                        <p style={{color: 'red'}}>{errors.password}</p>
+                    )}
+                  </div>
+                  <div>
+                    <p className="text-[1.2rem] text-[#454545]">Confirm password:</p>
+                    <input
+                        type="password"
+                        placeholder="confirm password"
+                        name="confirmPassword"
+                        value={values.confirmPassword}
+                        onChange={handleChange}
+                        className="w-full border-[2px] border-[#F4F4F4] outline-[#F4F4F4] h-[3rem] pl-[0.5rem] mt-[0.2rem]"
+                    />
+                    {errors.confirmPassword && touched.confirmPassword && (
+                        <p style={{color: 'red'}}>{errors.confirmPassword}</p>
+                    )}
+                  </div>
+                  <div className="flex justify-center">
+                    <button
+                        type="submit"
+                        onClick={() => handleSubmit()}
+                        className=" bg-[#5ae4a8] px-[3.5rem] py-[0.8rem] text-white font-medium rounded-[2rem] text-[1.4rem] mt-[2rem]"
+                    >
+                      Sign up
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-[1.2rem] text-[#454545]">Password:</p>
-                  <input
-                    type="password"
-                    placeholder="password"
-                    name="password"
-                    value={values.password}
-                    onChange={handleChange}
-                    className="w-full border-[2px] border-[#F4F4F4] outline-[#F4F4F4] h-[3rem] pl-[0.5rem] mt-[0.2rem]"
-                  />
-                  {errors.password && touched.password && (
-                    <p style={{ color: 'red' }}>{errors.password}</p>
-                  )}
-                </div>
-                <div className="flex justify-center">
-                  <button
-                    type="submit"
-                    onClick={() => handleSubmit()}
-                    className=" bg-[#5ae4a8] px-[3.5rem] py-[0.8rem] text-white font-medium rounded-[2rem] text-[1.4rem] mt-[2rem]"
-                  >
-                    Sign up
-                  </button>
-                </div>
-              </div>
             );
           }}
         </Formik>
@@ -123,8 +144,8 @@ export default function Register() {
 
         <div className="flex justify-center">
           <Link
-            href="/login"
-            className="text-center underline text-[#454545] text-[1.2rem] my-[1rem]"
+              href="/login"
+              className="text-center underline text-[#454545] text-[1.2rem] my-[1rem]"
           >
             Or sign in
           </Link>

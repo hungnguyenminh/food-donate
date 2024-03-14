@@ -131,18 +131,18 @@ export default function Login() {
           </Link>
         </div>
 
-        <div className="w-full grid grid-cols-2 gap-[0.5rem] px-[5rem]">
-          <button
-              className="flex items-center bg-[#4267b2] px-[3.5rem] py-[0.8rem] text-white font-medium rounded-[2rem] text-[1.4rem] mt-[2rem]">
-            <ICFacebook height={20} width={20} fill="white"/>
-            <span>Facebook</span>
-          </button>
-          <button
-              className="flex items-center bg-[#EA4335] px-[3.5rem] py-[0.8rem] text-white font-medium rounded-[2rem] text-[1.4rem] mt-[2rem]">
-            <ICGoogle height={25} width={25} fill="white"/>
-            <span className="ml-[0.5rem]">Google</span>
-          </button>
-        </div>
+        {/*<div className="w-full grid grid-cols-2 gap-[0.5rem] px-[5rem]">*/}
+        {/*  <button*/}
+        {/*      className="flex items-center bg-[#4267b2] px-[3.5rem] py-[0.8rem] text-white font-medium rounded-[2rem] text-[1.4rem] mt-[2rem]">*/}
+        {/*    <ICFacebook height={20} width={20} fill="white"/>*/}
+        {/*    <span>Facebook</span>*/}
+        {/*  </button>*/}
+        {/*  <button*/}
+        {/*      className="flex items-center bg-[#EA4335] px-[3.5rem] py-[0.8rem] text-white font-medium rounded-[2rem] text-[1.4rem] mt-[2rem]">*/}
+        {/*    <ICGoogle height={25} width={25} fill="white"/>*/}
+        {/*    <span className="ml-[0.5rem]">Google</span>*/}
+        {/*  </button>*/}
+        {/*</div>*/}
       </div>
     </div>
   );

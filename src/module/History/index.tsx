@@ -10,7 +10,6 @@ export default function History() {
   const user = useSelector((state: any) => state.user);
   const [dataHistory, setDataHistory] = useState<any>();
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -19,6 +18,7 @@ export default function History() {
         onValue(dataRef, (snapshot) => {
           const dataFromFirebase = snapshot.val();
 
+          console.log('dataFromFirebase', dataFromFirebase)
           // // convert data
           const listDonate =
             dataFromFirebase.donate && Object.values(dataFromFirebase.donate);
